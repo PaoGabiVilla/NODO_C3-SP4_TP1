@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Superhéroes</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1>Lista de Superhéroes</h1>
+
+    <% if (successMessage) { %>
+        <div id="mensajeExito" style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
+        ✅ <strong><%= successMessage %></strong>
+        </div>
+    <% } %>
+
+    <!-- Botón para agregar -->
+    <button onclick="window.location.href='/api/heroes/agregar'">✏️ Crear</button>
+    <br><br>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre Superheroe</th>
+                <th>Nombre Real</th>
+                <th>Edad</th>
+                <th>Planeta</th>
+                <th>Debilidad</th>
+                <th>Poderes</th>
+                <th>Aliados</th>
+                <th>Enemigos</th>
+                <th>Creador</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% superheroes.forEach(hero => { %>
+                <tr>
+                    <td><%= hero.nombreSuperHeroe %></td>
+                     <td><%= hero.nombreReal %></td>
+                    <td><%= hero.edad %></td>
+                    <td><%= hero.planetaOrigen %></td>
+                    <td><%= hero.debilidad %></td>
+                    <td>
+                        <ul>
+                            <% hero.poderes.forEach(poder => { %>
+                                <li><%= poder %></li>
+                            <% }) %>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <% hero.aliados.forEach(aliado => { %>
+                                <li><%= aliado %></li>
+                            <% }) %>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <% hero.enemigos.forEach(enemigo => { %>
+                                <li><%= enemigo %></li>
+                            <% }) %>
+                        </ul>
+                    </td>
+                    <td><%= hero.creador %></td>
+                    <td>
+                        <button onclick="window.location.href='/api/heroes/<%= hero._id %>/edit'">✏️ Editar</button>
+                        <form action="/api/heroes/<%= hero._id %>?_method=DELETE" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('¿Estás seguro que querés eliminar este héroe?')">🗑️ Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <script>
+  console.log("✅ Dashboard cargado correctamente con <%= superheroes.length %> superhéroes.");
+</script>
+
+<script>
+  const mensaje = document.getElementById('mensajeExito');
+  if (mensaje) {
+    setTimeout(() => {
+      mensaje.style.display = 'none';
+    }, 3000); // 3000 milisegundos = 3 segundos
+  }
+</script>
+
+</body>
+</html>
