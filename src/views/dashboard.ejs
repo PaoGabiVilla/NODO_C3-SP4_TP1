@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard de Superhéroes</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
 <body>
+    
     <h1>Lista de Superhéroes</h1>
 
     <% if (successMessage) { %>
@@ -14,9 +8,6 @@
         </div>
     <% } %>
 
-    <!-- Botón para agregar -->
-    <button onclick="window.location.href='/api/heroes/agregar'">✏️ Crear</button>
-    <br><br>
     <table>
         <thead>
             <tr>
@@ -63,11 +54,14 @@
                     </td>
                     <td><%= hero.creador %></td>
                     <td>
-                        <button onclick="window.location.href='/api/heroes/<%= hero._id %>/edit'">✏️ Editar</button>
-                        <form action="/api/heroes/<%= hero._id %>?_method=DELETE" method="POST" style="display:inline;">
-                            <button type="submit" onclick="return confirm('¿Estás seguro que querés eliminar este héroe?')">🗑️ Eliminar</button>
-                        </form>
+                        <div class="acciones">
+                            <button onclick="window.location.href='/api/heroes/<%= hero._id %>/edit'">Editar</button>
+                            <form action="/api/heroes/<%= hero._id %>?_method=DELETE" method="POST" style="display:inline;">
+                                <button type="submit" onclick="return confirm('¿Estás seguro que querés eliminar este héroe?')">Eliminar</button>
+                            </form>
+                        </div>
                     </td>
+                
                 </tr>
             <% }); %>
         </tbody>
@@ -84,6 +78,4 @@
     }, 3000); // 3000 milisegundos = 3 segundos
   }
 </script>
-
 </body>
-</html>

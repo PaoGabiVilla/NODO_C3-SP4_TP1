@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%-title%></title> <!-- título dinámico -->
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <!-- Navbar (componente parcial) -->
+  <%- include('partials/navbar') %>
+
+  <!-- Contenido que cambia según la vista -->
+  <main>
+    <%- body %>
+  </main>
+
+  <!-- Footer (componente parcial) -->
+  <%- include('partials/footer') %>
+
+</body>
+</html>
