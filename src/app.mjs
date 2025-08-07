@@ -8,12 +8,22 @@ import superHeroRoutes from './routes/superHeroRoutes.mjs';
 
 import methodOverride from 'method-override';
 import session from 'express-session';
+const app = express(); // 👉 Primero creás la app
+
+// Luego aplicás los middlewares
+app.use(session({
+  secret: 'clave-secreta',
+  resave: false,
+  saveUninitialized: true
+}));
 // Necesario para __dirname en ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const app = express();
 const PORT = 3000;
 
+//Configuración EJS como motor de vistas en Express
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Configurar express-ejs-layouts
 app.use(expressLayouts);
@@ -24,18 +34,17 @@ app.use(express.static(path.resolve('./public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-
+app.use(session({
+  secret: 'secretoSuperSecreto',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // Conexión a MongoDB
 connectDB();
 
 // Configuración de rutas
 app.use('/api', superHeroRoutes);
-
-
-//Configuración EJS como motor de vistas en Express
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
 // Ruta principal
 app.get('/', (req, res) => {

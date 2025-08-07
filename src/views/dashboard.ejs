@@ -3,9 +3,7 @@
     <h1>Lista de Superhéroes</h1>
 
     <% if (successMessage) { %>
-        <div id="mensajeExito" style="background-color: #d4edda; color: #155724; padding: 10px; border-radius: 5px; margin-bottom: 20px;">
-        ✅ <strong><%= successMessage %></strong>
-        </div>
+        <div class="alert success" id="mensajeExito"><%= successMessage %></div>
     <% } %>
 
     <table>
@@ -75,7 +73,7 @@
   if (mensaje) {
     setTimeout(() => {
       mensaje.style.display = 'none';
-    }, 3000); // 3000 milisegundos = 3 segundos
+    }, 3000); // Ocultar después de 3 segundos
   }
 </script>
 </body>
